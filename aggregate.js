@@ -9,15 +9,15 @@ const csv_path = "./output/pipelline_2.csv";
 const xls_path = "./output/pipelline_2.xls";
 
 async function main() {
-    const uri = "mongodb://localhost:27017"
+    const uri = process.env.CBM_URI
     const client = new MongoClient(uri);
 
     try {
         // Connect to the MongoDB cluster
         await client.connect();
 
-        const db = client.db("CBM");
-        const coll = db.collection("akama");
+        const db = client.db("test");
+        const coll = db.collection("gtu");
 
         await db.listCollections().toArray()
             .then((cols)=>{console.log("cols"+cols)})
