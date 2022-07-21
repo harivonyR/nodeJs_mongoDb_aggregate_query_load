@@ -1,40 +1,11 @@
-const ObjectsToCsv = require('objects-to-csv');
+const {sendQuerry,parseQuerry} = require('./controller/form_controller')
+const {pipeline_1} = require('./pipelline/pipelline')
 
-let extractio_bd = {
-    {
-        "_id": {
-            "day": "18/07/2022",
-            "pur_xxx": "Plus",
-            "pur_xxx": "Mixte"
-        }
-    },
-    {
-        "_id": {
-            "day": "18/07/2022",
-            "pur_xxx": "Plus",
-            "pur_xxx": "Mixte"
-        }
-    },
-    {
-        "_id": {
-            "day": "18/07/2022",
-            "pur_xxx": "Plus",
-            "pur_xxx": "Mixte"
-        }
-    },
-    {
-        "_id": {
-            "day": "18/07/2022",
-            "pur_xxx": "Plus",
-            "pur_xxx": "Mixte"
-        }
-    }
-}
 async function test(){
-    const extractio_bd_OBJ = new ObjectsToCsv(extractio_bd)
+    const {db,coll,pipe} = await parseQuerry()
+    console.log(db,coll,pipe)
 
-    await extractio_bd_OBJ.toDisk('test.csv');
-    console.log(extractio_bd_OBJ)
-}
-test()
+    await sendQuerry(db,coll,pipe)
+    .then(()=>console.log('querry sent'))
+}test()
 
