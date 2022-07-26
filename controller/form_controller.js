@@ -8,10 +8,9 @@ const {pipeline_1} = require('../pipelline/pipelline')
 const csv_path = "../output/pipelline_2.csv";
 const xls_path = "../output/pipelline_2.xls";
 
-async function parseQuerry(req=""){
-    console.dir(req.body)
+async function parseQuerry(){
+    //console.dir(req.body)
     let pipe = pipeline_1
-
     let db = "test"
     let coll = "gtu"
     

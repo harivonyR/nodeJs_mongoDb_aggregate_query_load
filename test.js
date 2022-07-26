@@ -1,5 +1,5 @@
 const {sendQuerry,parseQuerry} = require('./controller/form_controller')
-const {pipeline_1} = require('./pipelline/pipelline')
+const {main} = require('./aggregate')
 
 async function test(){
     const {db,coll,pipe} = await parseQuerry()
@@ -9,3 +9,4 @@ async function test(){
     .then(()=>console.log('querry sent'))
 }test()
 
+main().catch(console.error);
