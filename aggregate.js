@@ -1,33 +1,30 @@
 const { MongoClient } = require('mongodb');
 const ObjectsToCsv = require('objects-to-csv');
-const {saveToCsv,csvToXls,freeBtachFile} = require('./file/file.js')
-const { response } = require('express');
+const {param,pipelline} = require('./param')
 
-const {pipeline_1} = require('./pipelline/pipelline')
+require('dotenv').config();
 
-const csv_path = "./output/pipelline_2.csv";
-const xls_path = "./output/pipelline_2.xls";
+const database = param.db
+const collection = param.collection
+const path_output = param.path_output
+//const pipelline = pipelline
 
 async function main() {
-    const uri = process.env.CBM_URI
+    const uri = process.env.DB_URI
     const client = new MongoClient(uri);
 
     try {
         // Connect to the MongoDB cluster
         await client.connect();
 
-        const db = client.db("test");
-        const coll = db.collection("gtu");
+        const db = client.db(database);
+        const coll = db.collection(collection);
 
-        await db.listCollections().toArray()
-            .then((cols)=>{console.log("cols"+cols)})
-            .catch(error=>{console.log("error::"+error)})
-
-        const AggregationCursor = coll.aggregate(pipeline_1);
+        const AggregationCursor = coll.aggregate(pipelline);
         
         // Make the appropriate DB calls
-        //await listDatabases(client);
         let res= []
+
         for await (const doc of AggregationCursor) {
             res.push(doc)
             console.log(doc);
@@ -37,13 +34,9 @@ async function main() {
     
             //console.log(xls_path)
             const csv = new ObjectsToCsv(res,{ delimiter:';'});
-            //csv.setDelimiter = ";"
            
             // Save to file:
-            await csv.toDisk(csv_path,{ delimiter:';'});
-            await csvToXls(csv_path,xls_path)
-            // Return the CSV file as string:
-            console.log(await csv.toString());
+            await csv.toDisk(path_output,{ delimiter:';'});
           })();
         
     } catch (e) {
@@ -53,7 +46,7 @@ async function main() {
     }
 }
 
-module.exports= {main}
+main()
 
 
 

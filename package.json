@@ -1,8 +1,6 @@
 {
   "dependencies": {
-    "@aternus/csv-to-xlsx": "^1.0.19",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
     "mongodb": "^4.8.0",
     "objects-to-csv": "^1.3.6"
   }
