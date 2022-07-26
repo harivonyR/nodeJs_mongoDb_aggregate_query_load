@@ -33,10 +33,10 @@ async function main() {
         (async () => {
     
             //console.log(xls_path)
-            const csv = new ObjectsToCsv(res,{ delimiter:';'});
+            const csv = new ObjectsToCsv(res);
            
             // Save to file:
-            await csv.toDisk(path_output,{ delimiter:';'});
+            await csv.toDisk(path_output);
           })();
         
     } catch (e) {
