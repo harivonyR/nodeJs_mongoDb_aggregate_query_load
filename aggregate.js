@@ -20,29 +20,36 @@ async function main() {
         const db = client.db(database);
         const coll = db.collection(collection);
 
-        const AggregationCursor = coll.aggregate(pipelline);
+        const AggregationCursor = coll.aggregate(pipelline,{cursor: {batchSize: 50},allowDiskUse:true});
         
         // Make the appropriate DB calls
-        let res= []
+        
 
-        for await (const doc of AggregationCursor) {
-            res.push(doc)
-            console.log(doc);
+        async function  fetch_data (){
+            let res = []
+            for await (const doc of AggregationCursor) {
+                res.push(doc)
+                console.log(doc);
+            }
+            return res
         }
-        
-        (async () => {
-    
-            //console.log(xls_path)
-            const csv = new ObjectsToCsv(res);
-           
-            // Save to file:
-            await csv.toDisk(path_output);
-          })();
-        
+        let data = await fetch_data()
+        .then((data)=>{
+            (async () => {
+                //console.log(xls_path)
+                
+                const csv = new ObjectsToCsv(data);
+               
+                // Save to file:
+                await csv.toDisk(path_output);
+                await client.close();
+            })();
+        })
+
     } catch (e) {
         console.error(e);
     } finally {
-        await client.close();
+        
     }
 }
 
