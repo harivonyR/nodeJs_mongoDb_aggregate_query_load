@@ -1,4 +1,6 @@
-const app = require('express')()
+const express = require('express')
+const app = express()
+
 const path = require('path')
 
 app.set('views', path.join(__dirname, '/view'))
@@ -9,7 +11,7 @@ app.get('/',(req,res)=>{
     res.render('index')
 })
 
-app.get('/aggregate',(req,res)=>{
+app.get('/aggregation',(req,res)=>{
     res.render('aggregation')
 })
 
