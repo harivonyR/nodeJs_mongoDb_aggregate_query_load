@@ -7,8 +7,10 @@ function matchDate(begin,end){
 function matchDatePipelline(begin,end){
     const {day_start,day_end} = matchDate(begin,end)
     let pippeline_match_day = {
-        $match
+        $match: {"day" : {"$gte" : day_start, "$lte" :day_end}}
     }
 
     return pippeline_match_day
 }
+
+module.exports ={matchDatePipelline}
