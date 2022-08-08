@@ -2,6 +2,10 @@ const path = require('path')
 const { pipeline } = require('stream')
 
 
+const EJSON = require('mongodb-extjson');
+const pipellineText = '{"$limit" : 50},{ "$match": {"pur_name":"bundle" } }';
+const pipepellinParsed = EJSON.parse(pipellineText, { relaxed: true })
+
 let param = {
     db : "cbm",
     collection : "daily_purchase",
@@ -11,8 +15,11 @@ let param = {
 //let d = ISODate("")
 let pipelline = [{"$limit" : 1000}]
 
-//pipeline = [`{$limit : 2}`]
-// date = new Date("2022-07-21")
-//console.log(date.toISOString())
+let pipelline = [
+    // Stage 1
+    pipepellinParsed
+]
+
+date = Date("2022-07-21")
 
 module.exports = {param,pipelline}
