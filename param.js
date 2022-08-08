@@ -1,12 +1,22 @@
 const path = require('path')
-const { pipeline } = require('stream')
+const {matchDate} = require('./package/match')
 
 const EJSON = require('mongodb-extjson');
+const { start } = require('repl');
 
-const date = Date("2022-07-21")
+const date = new Date("2022-07-21")
 
-const pipellineText = '{"$match": {"day" : {"$gte" :"'+date+'"}}}';
+
+
+const limit = 10
+const limitText = `{"$limit":${limit}}`
+const pipellineLimit =  EJSON.parse(limitText, { relaxed: false })
+const pipellineDayMatch = {}
+
+const pipellineText = `{"$match": {"day" : {"$gte" :"${date}"}}}`;
 const pipepellinParsed = EJSON.parse(pipellineText, { relaxed: false })
+
+
 
 let param = {
     db : "cbm",
@@ -18,7 +28,8 @@ let param = {
 
 let pipelline = [
     // Stage 1
-    pipepellinParsed
+    pipellineLimit
+    //pipepellinParsed
 ]
 
 
