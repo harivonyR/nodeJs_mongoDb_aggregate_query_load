@@ -13,35 +13,79 @@
         <div class="container py-5 text-center">
             <h1 class="display-4 font-weight-bold">Aggregation Builder | MongoDB</h1>
             <p class="font-italic mb-0">
-                Start Building your MongoDB Query for DataBase aggregation, 
+                Start Building your MongoDB Query for DataBase aggregation,
             </p>
-            
+
             <a href="/" role="button" class="btn btn-primary px-5 mt-5">Home</a>
         </div>
     </div>
 
     <!-- For Demo Purpose -->
-    <div class="container py-5">
-        <h2 class="h3 font-weight-bold">Some demo content</h2>
-        <div class="row">
+    <div class="container py-5 d-flex flex-column justify-content-center align-items-center">
+        <div class="row w-75">
             <div class="col-lg-10 mb-4">
-                
-                <form>
+                <h2 class="h3 font-weight-bold">Build & Run aggregation</h2>
+            </div>
+            
+        </div>
+        
+        <div class="row w-75 px-5">
+            <div class="col-lg-10 mb-4">
+
+                <form action="/aggregation" method="post">
+                    <div class="row">
+                        <div class="input-group date col-lg-4 sm-12" data-provide="datepicker">
+                            <div class="m-2">
+                                <label for="date_begin">Day start :</label>
+                                <input type="date" name="date_begin" class="form-control">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                            <div class="m-2">
+                                <label for="date_end">Day end :</label>
+                                <input type="date" name="date_end" class="form-control">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <div class="m-2">
+                            <label for="exampleInputPassword1">Database :</label>
+                            <input name="database" type="text" class="form-control" id="database" placeholder="Enter database name">
+                        </div>
+                        <div class="m-2">
+                            <label for="exampleInputPassword1">Collection:</label>
+                            <input name="collection" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter collection name">
+                        
+                        </div>
                     </div>
+                    <div class="m-2">
+                        <label for="pipelline">Pipelline :</label>
+                        <textarea name="pipelline" class="form-control" id="textarea" rows="4"></textarea>
+                    </div>
+
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <div class="m-2">
+                            <label for="exampleInputPassword1">File path:</label>
+                            <input name="file_path" type="text"  class="form-control" id="file_path" placeholder="ex : /Users/hhv/Desktop/hhv">
+                        </div>
+                        <div class="m-2">
+                            <label for="exampleInputPassword1">Name:</label>
+                            <input name="file_name"type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter file name">
+                        </div>
                     </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    
+                    <div class="row d-flex m-2">
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
+                    
+                </form>
             </div>
         </div>
     </div>
