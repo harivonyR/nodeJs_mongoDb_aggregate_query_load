@@ -1,8 +1,11 @@
 const path = require('path')
+const {matchDatePipelline} = require('./package/match')
+const {parse_to_bson} = require('./package/bson_parser')
 
-const EJSON = require('mongodb-extjson');
-const pipellineText = '{ "$match": {"pur_name":"bundle" } }';
-const pipepellinParsed = EJSON.parse(pipellineText, { relaxed: true })
+const limit = 10
+const pipellineLimit =  parse_to_bson(`{"$limit":${limit}}`)
+const pippelineDate = matchDatePipelline("2022-07-21","2022-07-21")
+const pipellineProject = parse_to_bson('{"$project": {"_id" : 0,"day" : { "$dateToString" : { "format" : "%d/%m/%Y" , "date" : "$day"}},"party_id" : 1}}')
 
 let param = {
     db : "cbm",
@@ -14,10 +17,11 @@ let param = {
 
 let pipelline = [
     // Stage 1
-    pipepellinParsed
+    pippelineDate,
+    pipellineLimit,
+    pipellineProject
 ]
 
-date = Date("2022-07-21")
-//console.log(date.toISOString())
+//const date = new Date("2022-07-21") // type supported by aggregate node.js/mongodb
 
 module.exports = {param,pipelline}
