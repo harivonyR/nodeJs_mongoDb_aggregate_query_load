@@ -31,21 +31,18 @@ async function aggregationController(req, res) {
         .then(async (pipe) => {
             console.log('[ok] query build')
             await aggregate(param, pipe)
-                .then(() => {
+                .then(()=>{
                     console.log('[ok] agg done !')
-                    res.send('[ok] agg done !')
+                    res.render('success')
                 })
-                .catch((e) => {
-                    res.send("error : " + e)
+                .catch((e)=>{
+                    res.render('error',{error:e})
                 })
         })
-        .catch((e) => { 
+        .catch((e)=>{ 
             console.log('[NOK] query build') 
-            res.send('[NOK] error on query build !'+e)
+            res.render('error',{error:e})
         })
-
-
-
     //console.log(database)
     //res.send('date :'+date_begin)
 }
